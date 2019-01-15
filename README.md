@@ -6,3 +6,6 @@ Currently in early alpha phase. Made for those who wish to adapt the "E-Paper-Ca
 ### Disclaimer: Please do not confuse this repo with a fully fledged one. I do not have the 9.7" E-Paper display in my possession so there is absolutely no guarantee that this will even work. Also, I will not take responsibility for anything that is related to this software. Please use at your own risk.
 
 Kind Note: If you wish to assist me in the development of this software, you are free to do so. Any help is welcome.
+---------------------------------------------------------------------------------------------------------------------------------------
+Info, mainly for myself:
+* 9.7inch E-Ink display HAT for Raspberry Pi, 1200×825 resolution, 16 gray scale, USB/SPI/I80/I2C interface
