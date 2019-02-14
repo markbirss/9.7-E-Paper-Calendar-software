@@ -27,7 +27,7 @@ except Exception as e:
 import arrow
 print('modules imported successfully!'+'\n')
 
-path = '/home/pi/9.7/Calendar/'
+path = '/home/pi/E-Paper-Master/Calendar/'
 os.chdir(path)
 
 EPD_WIDTH = 1200
