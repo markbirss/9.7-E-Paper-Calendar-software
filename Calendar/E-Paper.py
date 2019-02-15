@@ -219,7 +219,7 @@ def main():
                 ImageDraw.Draw(space).text((0, y), text, fill=0, font=font)
                 image.paste(space, tuple)
 
-             """Write event dates and names on the E-Paper"""
+            """Write event dates and names on the E-Paper"""
             for dates in range(len(upcoming)):
                 write_text(100, 40, (upcoming[dates]['date']), date_positions['d'+str(dates+1)])
 
