@@ -27,7 +27,7 @@ except Exception as e:
 import arrow
 print('modules imported successfully!'+'\n')
 
-path = '/home/pi/E-Paper-Master/Calendar/'
+path = '/home/pi/9.7/Calendar/'
 os.chdir(path)
 
 EPD_WIDTH = 1200
@@ -57,8 +57,8 @@ def main():
             """image.paste the icon showing the current month"""
             image.paste(im_open(mpath+str(time.strftime("%B")+'.jpeg')), monthplace)
 
-            """image.paste the icons with the weekday-names (Mon, Tue...) and
-               image.paste a circle  on the current weekday"""
+            """Paste the icons with the weekday-names (Mon, Tue...) and
+               paste a circle  on the current weekday"""
             if (week_starts_on == "Monday"):
                 calendar.setfirstweekday(calendar.MONDAY)
                 image.paste(weekmon, weekplace)
@@ -69,7 +69,7 @@ def main():
                 image.paste(weeksun, weekplace)
                 draw(weekdaysmon[(time.strftime("%a"))], weekday)
 
-            """Using the built-in calendar function, image.paste icons for each
+            """Using the built-in calendar function, add icons for each
                number of the month (1,2,3,...28,29,30)"""
             cal = calendar.monthcalendar(time.year, time.month)
             #print(cal) #-uncomment for debugging with incorrect dates
@@ -264,8 +264,9 @@ def main():
 
             # Save the generated image in the E-Paper-folder.
             print('saving the generated image now...')
-            image.save(str(image_name)+'.jpeg')
+            image.save(str(image_name)+'.bmp')
             print('image saved successfully')
+            print('___sleeping until the next hour___')
 
             # delete the list so deleted events can be removed from the list
             del events_this_month[:]
