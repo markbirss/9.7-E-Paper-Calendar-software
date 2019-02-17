@@ -7,6 +7,6 @@ ical_urls = [
 api_key = "" #your owm-api-key
 location = "Stuttgart, DE" #your location
 week_starts_on = "Monday" #Sunday or Monday
-language = "en" #en=english, de=german
+language = "en" #en=english, de=german, ru=russian
 units = "metric" #metric or imperial?
 hours = "24" #12 or 24?
