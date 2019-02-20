@@ -17,7 +17,7 @@ from icon_positions_locations import *
 from PIL import Image, ImageDraw, ImageFont, ImageOps
 import calendar,  pyowm
 from ics import Calendar, Event
-from datetime import datetime
+from datetime import datetime, date, timedelta
 from time import sleep
 try:
     from urllib.request import urlopen
@@ -179,28 +179,21 @@ def main():
             print('Fetching events from your calendar'+'\n')
             events_this_month = []
             upcoming = []
+
+            today = date.today()
+            time_span = today + timedelta(days=int(events_max_range))
+
             for icalendars in ical_urls:
                 decode = str(urlopen(icalendars).read().decode())
-                #fix a bug related to Alarm action by replacing parts of the icalendar
                 fix_e = decode.replace('BEGIN:VALARM\r\nACTION:NONE','BEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:')
                 #uncomment line below to display your calendar in ical format
                 #print(fix_e)
                 ical = Calendar(fix_e)
                 for events in ical.events:
-                    if time.now().strftime('%-m %Y') == (events.begin).format('M YYYY') and (events.begin).format('DD') >= time.now().strftime('%d'):
-                        upcoming.append({'date':events.begin.format('DD MMM'), 'event':events.name})
+                    if events.begin.date().month == today.month:
                         events_this_month.append(int((events.begin).format('D')))
-                    if month == 12:
-                        if (1, year+1) == (1, int((events.begin).year)):
-                            upcoming.append({'date':events.begin.format('DD MMM'), 'event':events.name})
-                    if month != 12:
-                        if (month+1, year) == (events.begin).format('M YYYY'):
-                            upcoming.append({'date':events.begin.format('DD MMM'), 'event':events.name}) # HS sort events by date
-
-            def takeDate(elem):
-                return elem['date']
-
-            upcoming.sort(key=takeDate)
+                    if today <= events.begin.date() <= time_span:
+                        upcoming.append({'date':events.begin.format('DD MMM'), 'event':events.name})   
 
             del upcoming[7:]
             # uncomment the following 2 lines to display the fetched events
@@ -208,7 +201,6 @@ def main():
             print('Upcoming events:')
             print(upcoming)
 
-            #Credit to Hubert for suggesting truncating event names
             def write_text_left(box_width, box_height, text, tuple):
                 text_width, text_height = font.getsize(text)
                 while (text_width, text_height) > (box_width, box_height):
