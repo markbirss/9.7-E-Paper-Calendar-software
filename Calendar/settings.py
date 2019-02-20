@@ -3,7 +3,7 @@
 ical_urls = [
 "https://calendar.google.com/calendar/ical/en.usa%23holiday%40group.v.calendar.google.com/public/basic.ics"
 ]
-
+events_max_range = "60" # How far (in days) should the events from your iCalendar be fetched?
 api_key = "" #your owm-api-key
 location = "Stuttgart, DE" #your location
 week_starts_on = "Monday" #Sunday or Monday
