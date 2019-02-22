@@ -45,7 +45,7 @@ def main():
 
         for i in range(1):
             print('_________Starting new loop___________'+'\n')
-            
+
             image_name = time.strftime('%-d %b %y %H:%M')
             print('Current date:',time.strftime('%a %-d %b %y'))
             print('Current time:', time.strftime('%H:%M')+'\n')
@@ -116,7 +116,7 @@ def main():
                 Humidity = str(weather.get_humidity())
                 cloudstatus = str(weather.get_clouds())
                 weather_description = (str(weather.get_status()))
-                
+
                 if units == "metric":
                     Temperature = str(int(weather.get_temperature(unit='celsius')['temp']))
                     windspeed = str(int(weather.get_wind()['speed']))
@@ -152,7 +152,7 @@ def main():
 
                 """Drawing the fetched temperature"""
                 image.paste(tempicon, tempplace)
-                
+
                 """Drawing the fetched humidity"""
                 image.paste(humicon, humplace)
                 write_text(200, 50, Humidity + " %", (1000, 140))
@@ -185,15 +185,21 @@ def main():
 
             for icalendars in ical_urls:
                 decode = str(urlopen(icalendars).read().decode())
-                fix_e = decode.replace('BEGIN:VALARM\r\nACTION:NONE','BEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:')
+                fix_e_1 = decode.replace('BEGIN:VALARM\r\nACTION:NONE','BEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:')
+                fix_e_2 = fix_e_1.replace('BEGIN:VALARM\r\nACTION:EMAIL','BEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:')
                 #uncomment line below to display your calendar in ical format
-                #print(fix_e)
-                ical = Calendar(fix_e)
+                #print(fix_e_2)
+                ical = Calendar(fix_e_2)
                 for events in ical.events:
                     if events.begin.date().month == today.month:
                         events_this_month.append(int((events.begin).format('D')))
                     if today <= events.begin.date() <= time_span:
-                        upcoming.append({'date':events.begin.format('DD MMM'), 'event':events.name})   
+                        upcoming.append({'date':events.begin.format('YYYY MM DD'), 'event':events.name})
+
+            def takeDate(elem):
+                return elem['date']
+
+            upcoming.sort(key=takeDate)
 
             del upcoming[7:]
             # uncomment the following 2 lines to display the fetched events
@@ -213,7 +219,8 @@ def main():
 
             """Write event dates and names on the E-Paper"""
             for dates in range(len(upcoming)):
-                write_text(100, 40, (upcoming[dates]['date']), date_positions['d'+str(dates+1)])
+                readable_date = datetime.strptime(upcoming[dates]['date'], '%Y %m %d').strftime('%-d %b')
+                write_text(100, 40, readable_date, date_positions['d'+str(dates+1)])
 
             for events in range(len(upcoming)):
                 write_text_left(520, 40, (upcoming[events]['event']), event_positions['e'+str(events+1)])
@@ -263,7 +270,7 @@ def main():
             # delete the list so deleted events can be removed from the list
             del events_this_month[:]
             del upcoming[:]
-            
+
             for i in range(1):
                 nexthour = ((60 - int(time.strftime("%-M")))*60) - (int(time.strftime("%-S")))
                 sleep(nexthour)
