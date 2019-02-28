@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-#9.7 inch
+# For 9.7 inch E-Paper
 """
 E-Paper Software (main script) for the 3-colour and 2-Colour E-Paper display
 A full and detailed breakdown for this code can be found in the wiki.
@@ -37,7 +37,6 @@ im_open = Image.open
 
 def main():
     while True:
-
         time = datetime.now()
         hour = int(time.strftime("%-H"))
         month = int(time.now().strftime('%-m'))
@@ -45,19 +44,23 @@ def main():
 
         for i in range(1):
             print('_________Starting new loop___________'+'\n')
+            
+            """At the following hours (midnight, midday and 6 pm), perform
+               a calibration of the display's colours"""
+            #if hour is 0 or hour is 12 or hour is 18:
+                #image.paste(im_open(opath+'white.jpeg'))
 
-            image_name = time.strftime('%-d %b %y %H:%M')
-            print('Current date:',time.strftime('%a %-d %b %y'))
-            print('Current time:', time.strftime('%H:%M')+'\n')
+            image_name = 'current image'
+            print('Date:', time.strftime('%a %-d %b %y')+', Time: '+time.strftime('%H:%M')+'\n')
 
             """Create a blank page"""
             image = Image.new('L', (EPD_WIDTH, EPD_HEIGHT), 255)
             draw = (ImageDraw.Draw(image)).bitmap
 
-            """image.paste the icon showing the current month"""
+            """Draw the icon showing the current month"""
             image.paste(im_open(mpath+str(time.strftime("%B")+'.jpeg')), monthplace)
 
-            """Paste the icons with the weekday-names (Mon, Tue...) and
+            """Add the icons with the weekday-names (Mon, Tue...) and
                paste a circle  on the current weekday"""
             if (week_starts_on == "Monday"):
                 calendar.setfirstweekday(calendar.MONDAY)
@@ -69,26 +72,24 @@ def main():
                 image.paste(weeksun, weekplace)
                 draw(weekdaysmon[(time.strftime("%a"))], weekday)
 
-            """Using the built-in calendar function, add icons for each
+            """Using the built-in calendar function, draw icons for each
                number of the month (1,2,3,...28,29,30)"""
             cal = calendar.monthcalendar(time.year, time.month)
             #print(cal) #-uncomment for debugging with incorrect dates
 
-            for i in cal[0]:
-                image.paste(im_open(dpath+str(i)+'.jpeg'), positions['a'+str(cal[0].index(i)+1)])
-            for i in cal[1]:
-                image.paste(im_open(dpath+str(i)+'.jpeg'), positions['b'+str(cal[1].index(i)+1)])
-            for i in cal[2]:
-                image.paste(im_open(dpath+str(i)+'.jpeg'), positions['c'+str(cal[2].index(i)+1)])
-            for i in cal[3]:
-                image.paste(im_open(dpath+str(i)+'.jpeg'), positions['d'+str(cal[3].index(i)+1)])
-            for i in cal[4]:
-                image.paste(im_open(dpath+str(i)+'.jpeg'), positions['e'+str(cal[4].index(i)+1)])
-            try:
-                for i in cal[5]:
-                    image.paste(im_open(dpath+str(i)+'.jpeg'), positions['f'+str(cal[5].index(i)+1)])
-            except IndexError:
-                pass
+            for numbers in cal[0]:
+                image.paste(im_open(dpath+str(numbers)+'.jpeg'), positions['a'+str(cal[0].index(numbers)+1)])
+            for numbers in cal[1]:
+                image.paste(im_open(dpath+str(numbers)+'.jpeg'), positions['b'+str(cal[1].index(numbers)+1)])
+            for numbers in cal[2]:
+                image.paste(im_open(dpath+str(numbers)+'.jpeg'), positions['c'+str(cal[2].index(numbers)+1)])
+            for numbers in cal[3]:
+                image.paste(im_open(dpath+str(numbers)+'.jpeg'), positions['d'+str(cal[3].index(numbers)+1)])
+            for numbers in cal[4]:
+                image.paste(im_open(dpath+str(numbers)+'.jpeg'), positions['e'+str(cal[4].index(numbers)+1)])
+            if len(cal) == 6:
+                for numbers in cal[5]:
+                    image.paste(im_open(dpath+str(numbers)+'.jpeg'), positions['f'+str(cal[5].index(numbers)+1)])
 
             """Custom function to display text on the E-Paper.
             Tuple refers to the x and y coordinates of the E-Paper display,
@@ -187,8 +188,8 @@ def main():
                 decode = str(urlopen(icalendars).read().decode())
                 fix_e_1 = decode.replace('BEGIN:VALARM\r\nACTION:NONE','BEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:')
                 fix_e_2 = fix_e_1.replace('BEGIN:VALARM\r\nACTION:EMAIL','BEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:')
-                #uncomment line below to display your calendar in ical format
-                #print(fix_e_2)
+                # uncomment line below to display your calendar in ical format
+                # print(fix_e_2)
                 ical = Calendar(fix_e_2)
                 for events in ical.events:
                     if events.begin.date().month == today.month:
@@ -200,7 +201,6 @@ def main():
                 return elem['date']
 
             upcoming.sort(key=takeDate)
-
             del upcoming[7:]
             # uncomment the following 2 lines to display the fetched events
             # from your iCalendar
@@ -225,25 +225,23 @@ def main():
             for events in range(len(upcoming)):
                 write_text_left(520, 40, (upcoming[events]['event']), event_positions['e'+str(events+1)])
 
-            """Draw circles on any days which include an Event"""
-            for x in events_this_month:
-                if x in cal[0]:
-                    draw(positions['a'+str(cal[0].index(x)+1)], eventicon)
-                if x in cal[1]:
-                    draw(positions['b'+str(cal[1].index(x)+1)], eventicon)
-                if x in cal[2]:
-                    draw(positions['c'+str(cal[2].index(x)+1)], eventicon)
-                if x in cal[3]:
-                    draw(positions['d'+str(cal[3].index(x)+1)], eventicon)
-                if x in cal[4]:
-                    draw(positions['e'+str(cal[4].index(x)+1)], eventicon)
-                try:
-                    if x in cal[5]:
-                        draw(positions['f'+str(cal[5].index(x)+1)], eventicon)
-                except IndexError:
-                    pass
+             """Draw smaller squares on days with events"""
+            for numbers in events_this_month:
+                if numbers in cal[0]:
+                    draw(positions['a'+str(cal[0].index(numbers)+1)], eventicon)
+                if numbers in cal[1]:
+                    draw(positions['b'+str(cal[1].index(numbers)+1)], eventicon)
+                if numbers in cal[2]:
+                    draw(positions['c'+str(cal[2].index(numbers)+1)], eventicon)
+                if numbers in cal[3]:
+                    draw(positions['d'+str(cal[3].index(numbers)+1)], eventicon)
+                if numbers in cal[4]:
+                    draw(positions['e'+str(cal[4].index(numbers)+1)], eventicon)
+                if len(cal) == 6:
+                    if numbers in cal[5]:
+                        draw(positions['f'+str(cal[5].index(numbers)+1)], eventicon)
 
-            """image.paste a square with round corners on today's date"""
+            """Draw a larger square on today's date"""
             today = time.day
             if today in cal[0]:
                 draw(positions['a'+str(cal[0].index(today)+1)], dateicon)
@@ -255,11 +253,9 @@ def main():
                 draw(positions['d'+str(cal[3].index(today)+1)], dateicon)
             if today in cal[4]:
                 draw(positions['e'+str(cal[4].index(today)+1)], dateicon)
-            try:
+            if len(cal) == 6:
                 if today in cal[5]:
-                    draw(positions['f'+str(cal[0].index(today)+1)], dateicon)
-            except IndexError:
-                    pass
+                    draw(positions['f'+str(cal[5].index(today)+1)], dateicon)
 
             # Save the generated image in the E-Paper-folder.
             print('saving the generated image now...')
