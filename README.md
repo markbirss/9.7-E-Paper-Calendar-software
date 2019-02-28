@@ -42,6 +42,6 @@ Info, mainly for myself:
 ## Installing required packages for python 3.5 
 Execute the following command in the Terminal to install all required packages. This will work on both, Raspbian Stretch with Desktop and Raspbian Stretch lite. 
 
-`bash -c "$(curl -sL https://raw.githubusercontent.com/aceisace/9.7-E-Paper-Calendar-software/master/installer-with-debug?token=AcMG9i87ozEkiGKdzKWO9EUkjYu-Srddks5cPl4WwA%3D%3D)"`
+`bash -c "$(curl -sL https://raw.githubusercontent.com/aceisace/9.7-E-Paper-Calendar-software/master/installer-with-debug?token=AcMG9v5VgKH6YC7k-d9DENt1ANgnfs0Eks5ceBY7wA%3D%3D)"`
 
 If the Installer should fail for any reason, kindly open an issue and paste the error. Thanks.
