@@ -50,7 +50,7 @@ def main():
             #if hour is 0 or hour is 12 or hour is 18:
                 #image.paste(im_open(opath+'white.jpeg'))
 
-            image_name = 'current image'
+            image_name = 'current-image'
             print('Date:', time.strftime('%a %-d %b %y')+', Time: '+time.strftime('%H:%M')+'\n')
 
             """Create a blank page"""
