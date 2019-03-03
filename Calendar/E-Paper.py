@@ -268,7 +268,10 @@ def main():
             del upcoming[:]
 
             for i in range(1):
-                nexthour = ((60 - int(time.strftime("%-M")))*60) - (int(time.strftime("%-S")))
+                if int(time.strftime("%-M")) >= 55:
+                    nexthour = ((60 - int(time.strftime("%-M")))*60) - (int(time.strftime("%-S")))
+                else:
+                    nexthour = ((55 - int(time.strftime("%-M")))*60) - (int(time.strftime("%-S")))
                 sleep(nexthour)
 
 if __name__ == '__main__':
