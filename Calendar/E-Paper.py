@@ -225,7 +225,7 @@ def main():
             for events in range(len(upcoming)):
                 write_text_left(520, 40, (upcoming[events]['event']), event_positions['e'+str(events+1)])
 
-             """Draw smaller squares on days with events"""
+            """Draw smaller squares on days with events"""
             for numbers in events_this_month:
                 if numbers in cal[0]:
                     draw(positions['a'+str(cal[0].index(numbers)+1)], eventicon)
