@@ -98,7 +98,7 @@ if [ "$option" = 1 ] || [ "$option" = 2 ]; then
     cp README.md /home/pi/E-Paper-Master/
     cp LICENSE /home/pi/E-Paper-Master/
     cp -r .git /home/pi/E-Paper-Master/
-    
+
     # Make a copy of the sample settings.py file
     cd /home/pi/E-Paper-Master/Calendar
     cp settings.py.sample settings.py
@@ -106,6 +106,25 @@ if [ "$option" = 1 ] || [ "$option" = 2 ]; then
 
     # Remove the downloaded (temporary) directory
     sudo rm -r E-Paper-Calendar-with-iCal-sync-and-live-weather
+    
+    # Set up the Display driver
+    echo "Setting up the required E-Paper driver files"
+    cd /home/pi/E-Paper-Master/Calendar/Driver-files
+    cd bcm2835-1.58
+    ./configure
+    make
+    sudo make check
+    sudo make install
+    echo "C++ SPI library installed successfully"
+    echo ""
+    echo "Setting up the Display driver"
+    cd IT8951
+    make clean
+    make
+    echo "Drivers ready now. Testing if the E-Paper works by displaying the test.image"
+    sudo ./IT8951 0 0 test-image.bmp
+    echo "Test successful! Continuing..."
+    echo ""
 
     # add a short info
     cat > /home/pi/E-Paper-Master/Info.txt << EOF
@@ -133,6 +152,10 @@ stderr_logfile_maxbytes = 1MB
 EOF
 
     sudo service supervisor start E-Paper
+
+    echo "setting up crontab job"
+    (crontab -l ; echo "5 * * * * cd /home/pi/E-Paper-Master/Calendar/IT8951/ && sudo ./IT8951 0 0 /home/pi/E-Paper-Master/Calendar/current-image.bmp &") | crontab
+    echo "done"
 
     # Installing some new dependencies
     echo "Installing some new dependencies"
