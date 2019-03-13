@@ -11,17 +11,17 @@ weekpath =  path+'translations/'+language+'/week/'
 dpath = path+'days/'
 opath = path+'other/'
 
-weekday =       im_open(opath+'weekday.bmp').convert('L')
-eventicon =     im_open(opath+'event.bmp').convert('L')
-dateicon =      im_open(opath+'today.bmp').convert('L')
-tempicon =      im_open(wpath+'wi-thermometer.jpeg')
-humicon =       im_open(wpath+'wi-humidity.jpeg')
-weekmon =       im_open(weekpath+'week-mon.jpeg')
-weeksun =       im_open(weekpath+'week-mon.jpeg')
-no_response=    im_open(wpath+'wi-na.jpeg')
-sunriseicon =   im_open(wpath+'wi-sunrise.jpeg')
-sunseticon =    im_open(wpath+'wi-sunset.jpeg')
-windicon =      im_open(wpath+'wi-strong-wind.jpeg')
+weekday = im_open(opath+'weekday.png')
+eventicon = im_open(opath+'event.png')
+dateicon = im_open(opath+'today.png')
+tempicon = im_open(wpath+'wi-thermometer.jpeg')
+humicon = im_open(wpath+'wi-humidity.jpeg')
+weekmon = im_open(weekpath+'week-mon.jpeg')
+weeksun = im_open(weekpath+'week-mon.jpeg')
+no_response= im_open(wpath+'wi-na.jpeg')
+sunriseicon = im_open(wpath+'wi-sunrise.jpeg')
+sunseticon = im_open(wpath+'wi-sunset.jpeg')
+windicon = im_open(wpath+'wi-strong-wind.jpeg')
 
 wiconplace = (550, 90)
 tempplace = (950, 90)
@@ -109,8 +109,6 @@ weekdayssun = {
 'Wed': (col4,week_row), 'Thu': (col5,week_row), 'Fri': (col6,week_row),
 'Sat': (col7,week_row)
 }
-
-
 
 weathericons = {
 '01d': 'wi-day-sunny', '02d':'wi-day-cloudy', '03d': 'wi-cloudy',
