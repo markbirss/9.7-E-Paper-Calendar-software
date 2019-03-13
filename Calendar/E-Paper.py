@@ -32,9 +32,6 @@ except ImportError:
     print("and")
     print("pip3 install feedparser")
 
-#import arrow
-#print('modules imported successfully!'+'\n')
-
 path = '/home/pi/E-Paper-Master/Calendar/'
 os.chdir(path)
 
@@ -64,7 +61,6 @@ def main():
 
             """Create a blank white page first"""
             image = Image.new('L', (EPD_WIDTH, EPD_HEIGHT), 255)
-            draw = (ImageDraw.Draw(image)).bitmap
 
             """Add the icon with the current month's name"""
             image.paste(im_open(mpath+str(time.strftime("%B")+'.jpeg')), monthplace)
@@ -74,13 +70,13 @@ def main():
             if (week_starts_on == "Monday"):
                 calendar.setfirstweekday(calendar.MONDAY)
                 image.paste(weekmon, weekplace)
-                draw(weekdaysmon[(time.strftime("%a"))], weekday)
+                image.paste(weekday, weekdaysmon[(time.strftime("%a"))], weekday)
 
             """For those whose week starts on Sunday, change accordingly"""
             if (week_starts_on == "Sunday"):
                 calendar.setfirstweekday(calendar.SUNDAY)
                 image.paste(weeksun, weekplace)
-                draw(weekdaysmon[(time.strftime("%a"))], weekday)
+                image.paste(weekday, weekdayssun[(time.strftime("%a"))], weekday)
 
             """Using the built-in calendar function, add icons for each
                number of the month (1,2,3,...28,29,30)"""
@@ -290,37 +286,37 @@ def main():
                     write_text_left(1200, 40, news[lines], rss_places['line_'+str(lines+1)])
 
             """Draw smaller squares on days with events"""
-            for x in events_this_month:
-                if x in cal[0]:
-                    draw(positions['a'+str(cal[0].index(x)+1)], eventicon)
-                if x in cal[1]:
-                    draw(positions['b'+str(cal[1].index(x)+1)], eventicon)
-                if x in cal[2]:
-                    draw(positions['c'+str(cal[2].index(x)+1)], eventicon)
-                if x in cal[3]:
-                    draw(positions['d'+str(cal[3].index(x)+1)], eventicon)
-                if x in cal[4]:
-                    draw(positions['e'+str(cal[4].index(x)+1)], eventicon)
-                if len(cal) is 6:
-                    if x in cal[5]:
-                         draw(positions['f'+str(cal[5].index(x)+1)], eventicon)
+            for numbers in events_this_month:
+                if numbers in cal[0]:
+                    image.paste(eventicon, positions['a'+str(cal[0].index(numbers)+1)], eventicon)
+                if numbers in cal[1]:
+                    image.paste(eventicon, positions['b'+str(cal[1].index(numbers)+1)], eventicon)
+                if numbers in cal[2]:
+                    image.paste(eventicon, positions['c'+str(cal[2].index(numbers)+1)], eventicon)
+                if numbers in cal[3]:
+                    image.paste(eventicon, positions['d'+str(cal[3].index(numbers)+1)], eventicon)
+                if numbers in cal[4]:
+                    image.paste(eventicon, positions['e'+str(cal[4].index(numbers)+1)], eventicon)
+                if len(cal) == 6:
+                    if numbers in cal[5]:
+                        image.paste(eventicon, positions['f'+str(cal[5].index(numbers)+1)], eventicon)
 
 
             """Draw a larger square on today's date"""
             today = time.day
             if today in cal[0]:
-                draw(positions['a'+str(cal[0].index(today)+1)], dateicon)
+                image.paste(dateicon, positions['a'+str(cal[0].index(today)+1)], dateicon)
             if today in cal[1]:
-                draw(positions['b'+str(cal[1].index(today)+1)], dateicon)
+                image.paste(dateicon, positions['b'+str(cal[1].index(today)+1)], dateicon)
             if today in cal[2]:
-                draw(positions['c'+str(cal[2].index(today)+1)], dateicon)
+                image.paste(dateicon, positions['c'+str(cal[2].index(today)+1)], dateicon)
             if today in cal[3]:
-                draw(positions['d'+str(cal[3].index(today)+1)], dateicon)
+                image.paste(dateicon, positions['d'+str(cal[3].index(today)+1)], dateicon)
             if today in cal[4]:
-                draw(positions['e'+str(cal[4].index(today)+1)], dateicon)
-            if len(cal) is 6:
+                image.paste(dateicon, positions['e'+str(cal[4].index(today)+1)], dateicon)
+            if len(cal) == 6:
                 if today in cal[5]:
-                    draw(positions['f'+str(cal[5].index(today)+1)], dateicon)
+                    image.paste(dateicon, positions['f'+str(cal[5].index(today)+1)], dateicon)
 
             # Save the generated image in the E-Paper-folder.
             print('Saving the generated image now...')
