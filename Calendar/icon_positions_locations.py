@@ -33,12 +33,11 @@ sunriseplace = (700, 140)
 sunsetplace = (700, 190)
 
 rss_places = {
-    'line_1' : (0, 585), 'line_2' : (0, 625), 'line_3' : (0, 665),
-    'line_4' : (0, 705), 'line_5' : (0, 745), 'line_6' : (0, 785)
+    'line_1' : (0, 625), 'line_2' : (0, 665), 'line_3' : (0, 705),
+    'line_4' : (0, 745), 'line_5' : (0, 785)
     }
 
-
-e_col = 650
+e_col = 660
 date_col = 550
 
 e_row_1 = 290
