@@ -208,8 +208,8 @@ def main():
                     if events.begin.date().month == today.month:
                         if int((events.begin).format('D')) not in events_this_month:
                             events_this_month.append(int((events.begin).format('D')))
-                        if today <= events.begin.date() <= time_span:
-                            upcoming.append({'date':events.begin.format('YYYY MM DD'), 'event':events.name})
+                    if today <= events.begin.date() <= time_span:
+                        upcoming.append({'date':events.begin.format('YYYY MM DD'), 'event':events.name})
 
             def takeDate(elem):
                 return elem['date']
