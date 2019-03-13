@@ -1,7 +1,7 @@
 #!/bin/bash
 # E-Paper-Calendar software installer for the raspberry pi
 # Version: 1.5 (Early Februrary 2019)
-# Stability status of this installer: stable
+# Stability status of this installer: Confirmed with Raspbain Stretch Lite on 12th March 2019
 # Copyright by aceisace
 
 echo -e "\e[1mPlease select an option from below:"
@@ -67,9 +67,7 @@ if [ "$option" = 2 ]; then
 
     # Installing a few packages which are missing on Raspbian Stretch Lite
     echo -e "\e[1;36m"Installing a few packages that are missing on Raspbian Stretch Lite..."\e[0m"
-    sudo apt-get install python3-pip python-rpi.gpio-dbgsym python3-rpi.gpio python-rpi.gpio python3-rpi.gpio-dbgsym python3-spidev git libopenjp2-7-dev libtiff5 -y
-    pip3 install Pillow==5.3.0
-    sudo pip3 install Pillow==5.3.0
+    sudo apt-get install python3-pip -y python-rpi.gpio-dbgsym -y python3-rpi.gpio -y python-rpi.gpio -y python3-rpi.gpio-dbgsym -y python3-spidev -y git -y libopenjp2-7-dev -y libtiff5 -y python3-numpy -y
     echo ""
 
     # Running apt-get clean and apt-get autoremove
@@ -80,9 +78,13 @@ if [ "$option" = 2 ]; then
     # Installing packages required by the main script
     echo -e "\e[1;36m"Installing a few required packages for the E-Paper Software"\e[0m"
     sudo pip3 install pyowm
+    sudo pip3 install Pillow==5.3.0
     sudo pip3 install ics
+    sudo pip3 install feedparser
     pip3 install pyowm
     pip3 install ics
+    pip3 install feedparser
+    pip3 install Pillow==5.3.0
     echo -e "\e[1;36m"Finished installing libraries"\e[0m"
 fi
 
@@ -91,7 +93,7 @@ if [ "$option" = 1 ] || [ "$option" = 2 ]; then
     cd
     git clone https://github.com/aceisace/9.7-E-Paper-Calendar-software
     mkdir E-Paper-Master
-    cd 9.7-E-Paper-Calendar-software
+    cd E-Paper-Calendar-with-iCal-sync-and-live-weather
     cp -r Calendar /home/pi/E-Paper-Master/
     cp README.md /home/pi/E-Paper-Master/
     cp LICENSE /home/pi/E-Paper-Master/
@@ -103,13 +105,13 @@ if [ "$option" = 1 ] || [ "$option" = 2 ]; then
     cd
 
     # Remove the downloaded (temporary) directory
-    sudo rm -r 9.7-E-Paper-Calendar-software
+    sudo rm -r E-Paper-Calendar-with-iCal-sync-and-live-weather
 
     # add a short info
     cat > /home/pi/E-Paper-Master/Info.txt << EOF
 This document contains a short info of the E-Paper-Calendar software version
 
-Version: 1.5 (9.7" version)
+Version: 1.5 (for 9.7" E-Paper version)
 Installer version: 1.5 (Early February 2019)
 configuration file: /home/pi/E-Paper-Master/Calendar/settings.py
 If the time was set correctly, you installed this software on:
@@ -131,6 +133,12 @@ stderr_logfile_maxbytes = 1MB
 EOF
 
     sudo service supervisor start E-Paper
+
+    # Installing some new dependencies
+    echo "Installing some new dependencies"
+    sudo apt-get install python-numpy -y
+    sudo pip3 install feedparser
+    pip3 install feedparser
     echo ""
 
     # Final words
