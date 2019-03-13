@@ -1,36 +1,25 @@
-# 9.7-E-Paper-Calendar-software
+# 9.7" E-Paper-Calendar-software
 An adaptation of the E-Paper-Calendar-with-iCal-sync-and-live-weather specifically for the 9.7" E-Paper
 
 Currently in beta phase. Made for those who wish to adapt the "E-Paper-Calendar-with-iCal-sync-and-live-weather" software with the 9.7" E-Paper Display from waveshare.
 
----------------------------------------------------------------------------------------------------------------------------------------
-Info, mainly for myself:
-* 9.7inch E-Ink display HAT for Raspberry Pi, 1200×825 resolution, 16 gray scale, USB/SPI/I80/I2C interface
-
-
--------------------------------------------------------------------------------------------------------------------------------------
-# Raspberry-Pi-Google-Calendar-with-E-Paper-display
-
 This is a software written in python3 that allows you to transform an E-Paper display (like the kindle) into an information display. It fetches live data from Openweathermap (a weather info provider) and your Online Calendar (Google/Yahoo Calendar) and displays them on a large, beautiful and ultra-low power E-Paper display. It's ideal for staying organised and keeping track of important details without having to check them up online. 
 
-This software fully supports the 3-Colour **and** 2-Colour version of the 7.5" E-Paper display from waveshare/gooddisplay and works with Raspberry Pi 2, 3 and 0 (Zero, Zero W, Zero WH). 
+This software supports the 9.7" E-Paper display from waveshare and works with Raspberry Pi 2, 3 and 0 (Zero, Zero W, Zero WH).
 
 **To get started, follow the instructions below.**
 
-## News:
-* **Version 1.5 released (Early February 2019) with a new layout, displayed events and many back-end improvements**
-* **Added Support for the 2-Colour E-Paper Display as well!** (Late September 2018)
-* **Added Support for Raspbian Stretch lite.** (Late September 2018)
-
-Missing a featured image :(
+<img src="https://github.com/aceisace/E-Paper-Calendar-with-iCal-sync-and-live-weather/blob/master/Gallery/v1-5-mar-19.JPG" width="750">
+**7.5"-software-preview**
 
 ## Main features
-* Display the date and a full monthly calendar
-* Syncronise events from any online calendar (like google, yahoo etc.)
-* Get live weather data (including temperature, humidity, etc.) using openweathermap api
+* Monthly Calendar which automatically updates itself to the current day
+* Fetch appointments/events from your Google Calendar and display them on the Display
+* Fetch live weather data (temperature, humidity, sunrise- & sunset time, wind speed, weather-icon) from Openweathermap servers and display them on the E-Paper
+* Fetch RSS-feeds from given RSS-feed URLs and display the content (news, quotes etc.) on the E-Paper
 
 ## Hardware required
-* 9.7" E-Paper Display (Black, White) with driver hat from [waveshare](http://www.waveshare.com/9.7inch-e-paper-hat.htm)
+* 9.7"  E-Paper Display (Black, White) with driver hat from [waveshare](https://www.waveshare.com/product/9.7inch-e-paper-hat.htm)
 * Raspberry Pi Zero WH (with headers) (no soldering iron required)
 * Or: Raspberry Pi Zero W. In this case, you'll need to solder 2x20 pin GPIO headers yourself
 * MicroSD card (min. 4GB)
@@ -52,27 +41,29 @@ Missing a featured image :(
 ## Installing required packages for python 3.5 
 Execute the following command in the Terminal to install all required packages. This will work on both, Raspbian Stretch with Desktop and Raspbian Stretch lite. 
 
-**`bash -c "$(curl -sL https://raw.githubusercontent.com/aceisace/E-Paper-Calendar-with-iCal-sync-and-live-weather/master/Installer-with-debug.sh)"`**
+**`bash -c "$(curl -sL https://raw.githubusercontent.com/aceisace/9.7-E-Paper-Calendar-software/master/installer-with-debug)"`**
 
 If the Installer should fail for any reason, kindly open an issue and paste the error. Thanks.
 
 This is how the installer will run:
 
-<img src="https://github.com/aceisace/E-Paper-Calendar-with-iCal-sync-and-live-weather/blob/master/Gallery/Installer-v1.2-screenshot.png" width="700">
+<img src="https://github.com/aceisace/E-Paper-Calendar-with-iCal-sync-and-live-weather/blob/master/Gallery/installer-v1-5-p1.png" width="650"><img src="https://github.com/aceisace/E-Paper-Calendar-with-iCal-sync-and-live-weather/blob/master/Gallery/installer-v1-5-p2.png" width="650">
 
 ## Adding details to the programm
-Once the packages are installed, navigate to the home directory, open 'E-Paper-Master' and open the file 'settings.py' inside the Calendar folder. Adjust the values as needed. You can use the table below as a reference. You can edit the settings.py file by typing:
+Once the packages are installed, navigate to the home directory, open 'E-Paper-Master' and open the file 'settings.py' inside the Calendar folder. Adjust the values using the list below as a reference. You can edit the settings.py file by typing:
 `nano /home/pi/E-Paper-Master/Calendar/settings.py` in the Terminal. 
 
 | Parameter |  Description |
 | --- | --- |
 | ical_urls |  Your iCalendar URL/s. To add more than one URL, seperate each with a comma |
-|events_max_range| How far in the future should events from your iCalendar be fetched. The value is given in days. By default, events in the next 60 days will be fetched from the Calendar. Can be any integer from "1" to "365"|
+| rss_feeds | Here, you can add RSS-feed URLs which are used to fetch news etc. |
 | api_key | Your __personal__ openweathermap API-key which you can generate and find in your Account info |
 | location | Location refers to the closest weather station from your place. It isn't necessarily the place you live in. To find this location, type your city name in the search box on [openweathermap](https://openweathermap.org/). The output should be in the following format: City Name, Country ISO-Code. Not sure what your ISO code is? Check here: [(find iso-code)](https://countrycode.org/)  |
 | week_starts_on | When does the week start on your Region? Possible options are `"Monday"` or `"Sunday"`|
-| display_colours | This should normally be set by the installer when you choose the type of your display. Options include `"bw"` if you're using the black and white E-Paper or `"bwr"` when you're using the black-white-red or black-white-yellow E-Paper|
-| language | Choosing the language allows changing the language of the month and week-icons. Possible options are `"en"` for english and `"de"` for german|
+|events_max_range| How far in the future should events from your iCalendar be fetched. The value is given in days. By default, events in the next 60 days will be fetched from the Calendar. Can be any integer from `"1"` to `"365"`|
+| calibration_hours | At which hours would you like the Display to 'calibrate' itself? Calibration is strongly recommended at least 3 times a day. In the list, you have to include hours in 24-hour format, seperated by a comma. The default option is `[1,12,18]` and refers to 1 am, 12 am, and 6 pm |
+display_colours | This should normally be set by the installer when you choose the type of your display. Options include `"bw"` if you're using the black and white E-Paper or `"bwr"` when you're using the black-white-red or black-white-yellow E-Paper|
+| language | Choosing the language allows changing the language of the month and week-icons. Possible options are `"en"` for english,  `"de"` for german and `"ru"` for russian|
 |units| Selecting units allows switching units from km/h (kilometer per hour) and °C (degree Celcius) to mph (miles per hour) and °F (degree Fahrenheit). Possible options are `"metric"` or `"imperial"`|
 |hours | Which time format do you prefer? This will change the sunrise and sunset times from 24-hours format to 12-hours format. Possible options are `"24"` for 24-hours and `"12"` for 12-hours.|
 
