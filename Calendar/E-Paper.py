@@ -98,7 +98,7 @@ def main():
             for i in cal[4]:
                 image.paste(im_open(dpath+str(i)+'.jpeg'), positions['e'+str(cal[4].index(i)+1)])
             if len(cal) is 6:
-                for numbers in cal[5]:
+                for i in cal[5]:
                     image.paste(im_open(dpath+str(numbers)+'.jpeg'), positions['f'+str(cal[5].index(numbers)+1)])
 
             """Custom function to display text on the E-Paper.
@@ -236,7 +236,7 @@ def main():
                 write_text(100, 40, readable_date, date_positions['d'+str(dates+1)])
 
             for events in range(len(upcoming)):
-                write_text_left(520, 40, (upcoming[events]['event']), event_positions['e'+str(events+1)])
+                write_text_left(540, 40, (upcoming[events]['event']), event_positions['e'+str(events+1)])
 
             """Add rss-feeds at the bottom section of the Calendar"""
             def multiline_text(text, max_width):
@@ -267,10 +267,10 @@ def main():
             news = []
 
             if len(cal) == 5:
-                del rss_feed[6:]
+                del rss_feed[4:]
 
             if len(cal) == 6:
-                del rss_feed[4:]
+                del rss_feed[2:]
 
             for title in range(len(rss_feeds)):
                 news.append(multiline_text(rss_feed[title], 1200))
@@ -279,13 +279,13 @@ def main():
 
             if len(cal) is 5:
                 if len(news) > 5:
-                    del news[5:]
+                    del news[4:]
                 for lines in range(len(news)):
                     write_text_left(1200, 40, news[lines], rss_places['line_'+str(lines+1)])
 
             if len(cal) is 6:
                 if len(news) > 3:
-                    del news[3:]
+                    del news[2:]
                 for lines in range(len(news)):
                     write_text_left(1200, 40, news[lines], rss_places['line_'+str(lines+1)])
 
@@ -302,7 +302,7 @@ def main():
                 if x in cal[4]:
                     draw(positions['e'+str(cal[4].index(x)+1)], eventicon)
                 if len(cal) is 6:
-                    if numbers in cal[5]:
+                    if x in cal[5]:
                          draw(positions['f'+str(cal[5].index(x)+1)], eventicon)
 
 
