@@ -35,6 +35,8 @@ except ImportError:
 path = '/home/pi/E-Paper-Master/Calendar/'
 os.chdir(path)
 
+observation = owm.weather_at_place(location)
+
 EPD_WIDTH = 1200
 EPD_HEIGHT = 825
 font = ImageFont.truetype(path+'OpenSans-Semibold.ttf', 28)
@@ -67,13 +69,13 @@ def main():
 
             """Add weekday-icons (Mon, Tue...) and draw a circle on the
             current weekday"""
-            if (week_starts_on == "Monday"):
+            if (week_starts_on is "Monday"):
                 calendar.setfirstweekday(calendar.MONDAY)
                 image.paste(weekmon, weekplace)
                 image.paste(weekday, weekdaysmon[(time.strftime("%a"))], weekday)
 
             """For those whose week starts on Sunday, change accordingly"""
-            if (week_starts_on == "Sunday"):
+            if (week_starts_on is "Sunday"):
                 calendar.setfirstweekday(calendar.SUNDAY)
                 image.paste(weeksun, weekplace)
                 image.paste(weekday, weekdayssun[(time.strftime("%a"))], weekday)
@@ -116,7 +118,6 @@ def main():
             print("Connecting to Openweathermap API servers...")
             owm = pyowm.OWM(api_key)
             if owm.is_API_online() is True:
-                observation = owm.weather_at_place(location)
                 print("weather data:")
                 weather = observation.get_weather()
                 weathericon = weather.get_weather_icon_name()
@@ -124,23 +125,23 @@ def main():
                 cloudstatus = str(weather.get_clouds())
                 weather_description = (str(weather.get_status()))
 
-                if units == "metric":
+                if units is "metric":
                     Temperature = str(int(weather.get_temperature(unit='celsius')['temp']))
                     windspeed = str(int(weather.get_wind()['speed']))
                     write_text(200, 50, Temperature + " °C", (1000, 90))
                     write_text(200, 50, windspeed+" km/h", (1000, 190))
 
-                if units == "imperial":
+                if units is "imperial":
                     Temperature = str(int(weather.get_temperature(unit='fahrenheit')['temp']))
                     windspeed = str(int(weather.get_wind()['speed']*0.621))
                     write_text(200, 50, Temperature + " °F", (1000, 90))
                     write_text(200, 50, windspeed+" mph", (1000, 190))
 
-                if hours == "24":
+                if hours is "24":
                     sunrisetime = str(datetime.fromtimestamp(int(weather.get_sunrise_time(timeformat='unix'))).strftime('%-H:%M'))
                     sunsettime = str(datetime.fromtimestamp(int(weather.get_sunset_time(timeformat='unix'))).strftime('%-H:%M'))
 
-                if hours == "12":
+                if hours is "12":
                     sunrisetime = str(datetime.fromtimestamp(int(weather.get_sunrise_time(timeformat='unix'))).strftime('%-I:%M'))
                     sunsettime = str(datetime.fromtimestamp(int(weather.get_sunset_time(timeformat='unix'))).strftime('%-I:%M'))
 
@@ -201,7 +202,7 @@ def main():
                 #print(fix_e_2)
                 ical = Calendar(fix_e_2)
                 for events in ical.events:
-                    if events.begin.date().month == today.month:
+                    if events.begin.date().month is today.month:
                         if int((events.begin).format('D')) not in events_this_month:
                             events_this_month.append(int((events.begin).format('D')))
                     if today <= events.begin.date() <= time_span:
@@ -262,10 +263,10 @@ def main():
             random.shuffle(rss_feed)
             news = []
 
-            if len(cal) == 5:
+            if len(cal) is 5:
                 del rss_feed[4:]
 
-            if len(cal) == 6:
+            if len(cal) is 6:
                 del rss_feed[2:]
 
             for title in range(len(rss_feeds)):
@@ -297,7 +298,7 @@ def main():
                     image.paste(eventicon, positions['d'+str(cal[3].index(numbers)+1)], eventicon)
                 if numbers in cal[4]:
                     image.paste(eventicon, positions['e'+str(cal[4].index(numbers)+1)], eventicon)
-                if len(cal) == 6:
+                if len(cal) is 6:
                     if numbers in cal[5]:
                         image.paste(eventicon, positions['f'+str(cal[5].index(numbers)+1)], eventicon)
 
@@ -314,7 +315,7 @@ def main():
                 image.paste(dateicon, positions['d'+str(cal[3].index(today)+1)], dateicon)
             if today in cal[4]:
                 image.paste(dateicon, positions['e'+str(cal[4].index(today)+1)], dateicon)
-            if len(cal) == 6:
+            if len(cal) is 6:
                 if today in cal[5]:
                     image.paste(dateicon, positions['f'+str(cal[5].index(today)+1)], dateicon)
 
