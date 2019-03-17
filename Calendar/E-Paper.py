@@ -270,7 +270,7 @@ def main():
                 del rss_feed[2:]
 
             for title in range(len(rss_feeds)):
-                news.append(multiline_text(rss_feed[title], 1200))
+                news.append(multiline_text(rss_feed[title], 1100))
 
             news = [j for i in news for j in i]
 
@@ -278,13 +278,13 @@ def main():
                 if len(news) > 5:
                     del news[4:]
                 for lines in range(len(news)):
-                    write_text_left(1200, 40, news[lines], rss_places['line_'+str(lines+1)])
+                    write_text_left(1100, 40, news[lines], rss_places['line_'+str(lines+1)])
 
             if len(cal) is 6:
                 if len(news) > 3:
                     del news[2:]
                 for lines in range(len(news)):
-                    write_text_left(1200, 40, news[lines], rss_places['line_'+str(lines+1)])
+                    write_text_left(1100, 40, news[lines], rss_places['line_'+str(lines+1)])
 
             """Draw smaller squares on days with events"""
             for numbers in events_this_month:
