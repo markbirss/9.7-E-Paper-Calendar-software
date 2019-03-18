@@ -35,7 +35,7 @@ except ImportError:
 path = '/home/pi/E-Paper-Master/Calendar/'
 os.chdir(path)
 
-observation = owm.weather_at_place(location)
+owm = pyowm.OWM(api_key)
 
 EPD_WIDTH = 1200
 EPD_HEIGHT = 825
@@ -116,8 +116,8 @@ def main():
 
             """Connect to Openweathermap API to fetch weather data"""
             print("Connecting to Openweathermap API servers...")
-            owm = pyowm.OWM(api_key)
             if owm.is_API_online() is True:
+                observation = owm.weather_at_place(location)
                 print("weather data:")
                 weather = observation.get_weather()
                 weathericon = weather.get_weather_icon_name()
