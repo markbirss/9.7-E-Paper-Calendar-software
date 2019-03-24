@@ -14,7 +14,7 @@ If you understand all risks, you may still choose to use this software, but you 
   
   [![Version](https://img.shields.io/github/release/aceisace/9.7-E-Paper-Calendar-software.svg)](https://github.com/aceisace/9.7-E-Paper-Calendar-software/releases)
   [![Python](https://img.shields.io/pypi/pyversions/pyowm.svg)](https://img.shields.io/pypi/pyversions/pyowm.svg)
-  [![Licence](https://img.shields.io/github/license/aceisace/9.7-E-Paper-Calendar-software.svg)](https://github.com/aceisace/E-Paper-Calendar-with-iCal-sync-and-live-weather/blob/master/LICENSE)
+  [![Licence](https://img.shields.io/github/license/aceisace/9.7-E-Paper-Calendar-software.svg)](https://github.com/aceisace/9.7-E-Paper-Calendar-software/blob/master/LICENSE)
   [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/SaadNaseer)
 </p>
 
