@@ -26,8 +26,9 @@ This software fully supports the 9.7" E-Paper display from waveshare/gooddisplay
 * **Public launch of this repo on 24th March 2019**
 
 ## Preview
-
-### Sorry, Image coming soon :(
+<p align="center">
+<img src="https://user-images.githubusercontent.com/22008248/54883106-78b2e280-4e6a-11e9-9371-7fd3077bce75.jpg" width="800">
+</p>
 
 ## Main features
 * Monthly Calendar which automatically updates itself to the current day
