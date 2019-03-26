@@ -93,7 +93,7 @@ if [ "$option" = 1 ] || [ "$option" = 2 ]; then
     cd
     git clone https://github.com/aceisace/9.7-E-Paper-Calendar-software
     mkdir E-Paper-Master
-    cd E-Paper-Calendar-with-iCal-sync-and-live-weather
+    cd 9.7-E-Paper-Calendar-software
     cp -r Calendar /home/pi/E-Paper-Master/
     cp README.md /home/pi/E-Paper-Master/
     cp LICENSE /home/pi/E-Paper-Master/
@@ -105,7 +105,7 @@ if [ "$option" = 1 ] || [ "$option" = 2 ]; then
     cd
 
     # Remove the downloaded (temporary) directory
-    sudo rm -r E-Paper-Calendar-with-iCal-sync-and-live-weather
+    sudo rm -r 9.7-E-Paper-Calendar-software
     
     # Set up the Display driver
     echo "Setting up the required E-Paper driver files"
