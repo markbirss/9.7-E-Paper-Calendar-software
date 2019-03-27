@@ -1,10 +1,3 @@
-# Attention
-This repo has just been launched and is by no means ready for production. It's highly possible that the software will not be set up as desired, will have flaws and lots of bugs. Please wait until the warning has disappeared before you start using this software. The estimated waiting time is around 2-3 weeks.
-
-If you understand all risks, you may still choose to use this software, but you have been warned.
-
----
-
 # 9.7" Raspberry Pi E-Paper Calendar
 <p align="center">
 <img src="https://github.com/aceisace/E-Paper-Calendar-with-iCal-sync-and-live-weather/blob/master/Gallery/E-Paper-Calendar%20Software-logo.png" width="800">
