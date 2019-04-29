@@ -1,6 +1,6 @@
 # 9.7" Raspberry Pi E-Paper Calendar
 <p align="center">
-<img src="https://github.com/aceisace/E-Paper-Calendar-with-iCal-sync-and-live-weather/blob/master/Gallery/E-Paper-Calendar%20Software-logo.png" width="800">
+<img src="https://github.com/aceisace/Inky-Calendar/blob/Stable/Gallery/Inky-Calendar-logo.png" width="800">
 </p>
 
 <p align="center">
