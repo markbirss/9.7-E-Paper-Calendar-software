@@ -97,7 +97,7 @@ def main():
                 image.paste(im_open(dpath+str(i)+'.jpeg'), positions['e'+str(cal[4].index(i)+1)])
             if len(cal) is 6:
                 for i in cal[5]:
-                    image.paste(im_open(dpath+str(numbers)+'.jpeg'), positions['f'+str(cal[5].index(numbers)+1)])
+                    image.paste(im_open(dpath+str(i)+'.jpeg'), positions['f'+str(cal[5].index(i)+1)])
 
             """Custom function to display text on the E-Paper.
             Tuple refers to the x and y coordinates of the E-Paper display,
